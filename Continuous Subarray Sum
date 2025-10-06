@@ -1,0 +1,19 @@
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        mod_index = {0: -1}  # remainder -> earliest index
+        prefix_sum = 0
+        
+        for i, num in enumerate(nums):
+            prefix_sum += num
+            if k != 0:
+                remainder = prefix_sum % k
+            else:
+                remainder = prefix_sum  # handle k = 0 case
+            
+            if remainder in mod_index:
+                if i - mod_index[remainder] > 1:
+                    return True
+            else:
+                mod_index[remainder] = i
+        
+        return False
